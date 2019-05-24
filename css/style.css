@@ -1,0 +1,25 @@
+.text{
+	font-family: 'Anton', sans-serif;
+	font-size: 6em;
+	background-image: url("../media/bg_image.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+h3{
+	font-family: 'Anton', sans-serif;
+}
+
+header img{
+	width: 15%;
+	border-radius: 50%;
+}
+
+header div{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}

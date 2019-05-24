@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EJERCICIOS VUE</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+</head>
+<body>
+	<main>
+		<header class="px-3 py-3 bg-dark">
+			<div class="pt-2">
+				<img src="./media/img_header.jpg" alt="">
+				<h1 class="text d-inline mx-5">RICK Y MORTY</h1>
+			</div>
+		</header>
+		<main class="bg-light p-5">
+			<div id="app">
+				
+			</div>
+		</main>
+	</main>
+	<template id="character-template">
+		<div class="card">
+			<img src="" alt="" class="card_image_top">
+			<div class="card-body">
+				<h5 class="card-title">{{ character.name }}</h5>
+				<div class="card-text fact">
+					<p class="">ID: </p>
+					<p class="">{{ character.id }}</p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="fact">
+						<p>Status: </p>
+						<p>{{ character.status }}</p>
+					</li>
+					<li class="fact">
+						<p>Species: </p>
+						<p>{{ character.species }}</p>
+					</li>
+					<li class="fact">
+						<p>Type: </p>
+						<p>{{ character.type }}</p>
+					</li>
+					<li class="fact">
+						
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+	new Vue({
+		el: "#app",
+		data: {
+			characters: []
+		},
+		created: function(){
+			axios.get("https://rickandmortyapi.com/api/character")
+			.then(function(response){
+				this.characters = response.data;
+			})
+			.catch(function(error){
+				console.log(error);
+			})
+		}
+	});
+</script>
+</html>
