@@ -15,36 +15,39 @@
 				<h1 class="text d-inline mx-5">RICK Y MORTY</h1>
 			</div>
 		</header>
-		<main class="bg-light p-5">
+		<main class="bg-light">
 			<div id="app">
-				
+				<div class="cards pt-5">
+					<character v-for = "character in characters" :character = "character"></character>
+				</div>
 			</div>
 		</main>
 	</main>
 	<template id="character-template">
-		<div class="card">
-			<img src="" alt="" class="card_image_top">
+		<div class="card bg-dark w-25 p-1 m-3">
+			<img :src = "img" alt="" class="card_image_top">
 			<div class="card-body">
-				<h5 class="card-title">{{ character.name }}</h5>
+				<h5 class="card-title color_green">{{ character.name }}</h5>
 				<div class="card-text fact">
-					<p class="">ID: </p>
-					<p class="">{{ character.id }}</p>
+					<p class="color_green">ID: </p>
+					<p class="color_white">{{ character.id }}</p>
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="fact">
-						<p>Status: </p>
-						<p>{{ character.status }}</p>
+						<p class="color_green">Status: </p>
+						<p class="color_white">{{ character.status }}</p>
 					</li>
 					<li class="fact">
-						<p>Species: </p>
-						<p>{{ character.species }}</p>
+						<p class="color_green">Species: </p>
+						<p class="color_white">{{ character.species }}</p>
 					</li>
 					<li class="fact">
-						<p>Type: </p>
-						<p>{{ character.type }}</p>
+						<p class="color_green">Type: </p>
+						<p class="color_white">{{ character.type }}</p>
 					</li>
 					<li class="fact">
-						
+						<p class="color_green">Gender: </p>
+						<p class="color_white">{{ character.gender }}</p>
 					</li>
 				</ul>
 			</div>
@@ -54,15 +57,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+	Vue.component('character', {
+		props: ["character"],
+		template: "#character-template",
+		computed: {
+			img: function(){
+				return this.character.image;
+			}
+		}
+	});
+
 	new Vue({
 		el: "#app",
 		data: {
 			characters: []
 		},
 		created: function(){
-			axios.get("https://rickandmortyapi.com/api/character")
-			.then(function(response){
-				this.characters = response.data;
+			axios.get("https://rickandmortyapi.com/api/character/")
+			.then(response => {
+				response.data.results.length = 9;
+
+				response.data.results.forEach(data => {
+
+					let type = data.type == "" ? "Unknow":data.type;
+
+					let character = {
+						image: data.image,
+						name: data.name,
+						id: data.id,
+						status: data.status,
+						species: data.species,
+						type: type,
+						gender: data.gender
+					};
+
+					this.characters.push(character);
+
+				});
 			})
 			.catch(function(error){
 				console.log(error);
